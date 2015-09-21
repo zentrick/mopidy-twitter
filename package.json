@@ -1,0 +1,33 @@
+{
+  "name": "mopidy-twitter",
+  "version": "0.0.0",
+  "description": "Tweets the song that's currently playing in Mopidy.",
+  "author": "Zentrick nv (https://www.zentrick.com/)",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "dependencies": {
+    "mopidy": "^0.5.0",
+    "twitter": "^1.2.5",
+    "user-home": "^2.0.0"
+  },
+  "devDependencies": {
+    "standard": "^5.2.2"
+  },
+  "main": "mopidy-twitter.js",
+  "bin": {
+    "mopidy-twitter": "mopidy-twitter.js"
+  },
+  "files": [
+    "mopidy-twitter.js"
+  ],
+  "scripts": {
+    "test": "node node_modules/standard/bin/cmd.js",
+    "start": "node mopidy-twitter.js"
+  },
+  "repository": "zentrick/mopidy-twitter",
+  "bugs": {
+    "url": "https://github.com/zentrick/mopidy-twitter/issues"
+  },
+  "license": "MIT"
+}
