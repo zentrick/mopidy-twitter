@@ -5,16 +5,20 @@
 var Mopidy = require('mopidy')
 var Twitter = require('twitter')
 var userHome = require('user-home')
+var fs = require('fs')
 var path = require('path')
 
 var configDir = path.join(userHome, '.config', 'mopidy-twitter')
+var optionsFile = path.resolve(configDir, 'options.json')
 var config = {
   mopidy: require(path.resolve(configDir, 'mopidy.json')),
-  twitter: require(path.resolve(configDir, 'twitter.json'))
+  twitter: require(path.resolve(configDir, 'twitter.json')),
+  options: fs.existsSync(optionsFile) ? require(optionsFile) : {}
 }
 
 var client = new Twitter(config.twitter)
-var currentTrack
+var currentTrack = null
+var tweetTimeout = null
 
 var artistsToString = function (artists) {
   var artistNames = artists.map(function (artist) { return artist.name })
@@ -49,11 +53,18 @@ var tweet = function () {
 
 var acceptTrack = function (track) {
   var trackStr = track ? trackToString(track) : null
+  console.info('Track:', (currentTrack !== null) ? currentTrack : '(none)')
   if (trackStr !== currentTrack) {
     currentTrack = trackStr
-    console.info('Track:', (currentTrack !== null) ? currentTrack : '(none)')
+    if (tweetTimeout) {
+      clearTimeout(tweetTimeout)
+      tweetTimeout = null
+    }
     if (currentTrack !== null) {
-      tweet()
+      var delay = (typeof config.options.delay === 'number')
+        ? config.options.delay
+        : 5000
+      tweetTimeout = setTimeout(tweet, delay)
     }
   }
 }
