@@ -1,6 +1,6 @@
 {
   "name": "mopidy-twitter",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Tweets the song that's currently playing in Mopidy.",
   "author": "Zentrick nv (https://www.zentrick.com/)",
   "engines": {
