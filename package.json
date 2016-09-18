@@ -12,7 +12,7 @@
     "user-home": "^2.0.0"
   },
   "devDependencies": {
-    "standard": "^5.2.2"
+    "standard": "^8.1.0"
   },
   "main": "mopidy-twitter.js",
   "bin": {
